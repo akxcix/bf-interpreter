@@ -1,12 +1,16 @@
 import bfi
+import sys
 
 # takes two number as input, adds them, and prints the result
-bf_code = ",>,<[->+<]>."
 
-
-def main():
+def main(filename: str):
+    code = open(filename, "r").read()
     interpreter = bfi.Interpreter()
-    interpreter.run(bf_code)
+    interpreter.run(code)
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+        main(filename)
+    else:
+        print("Please provide a filename as a command line argument.")

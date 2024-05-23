@@ -60,10 +60,14 @@ class Interpreter:
                     self.data[self.data_pointer] -= 1
                     self.instruction_pointer += 1
                 case Token.OUTPUT:
-                    print("output:",self.data[self.data_pointer])
+                    print(self.data[self.data_pointer])
                     self.instruction_pointer += 1
                 case Token.INPUT:
-                    self.data[self.data_pointer] = int(input("input : "))
+                    self.data[self.data_pointer] = int(input())
+                    if self.data[self.data_pointer] > 255:
+                        self.data[self.data_pointer] = 255
+                    if self.data[self.data_pointer] < 0:
+                        self.data[self.data_pointer] = 0
                     self.instruction_pointer += 1
                 case Token.LOOP:
                     if self.data[self.data_pointer] != 0:
