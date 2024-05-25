@@ -1,8 +1,6 @@
 import enum
 
 class Interpreter:
-    DATA_SIZE = 30000
-
     class Token(enum.Enum):
         SHIFT_RIGHT = ">"
         SHIFT_LEFT = "<"
@@ -13,8 +11,11 @@ class Interpreter:
         LOOP = "["
         END = "]"
 
-    def __init__(self):
-        self.data = [0] * self.DATA_SIZE
+    def __init__(self, data_size: int = 30000, print_end: str = "\n"):
+        self.print_end = print_end
+        self.data_size = data_size
+
+        self.data = [0] * self.data_size
         self.data_pointer = 0
         self.instruction_pointer = 0
 
@@ -57,7 +58,7 @@ class Interpreter:
                 case Interpreter.Token.DECREMENT:
                     self.data[self.data_pointer] -= 1
                 case Interpreter.Token.OUTPUT:
-                    print(self.data[self.data_pointer])
+                    print(self.data[self.data_pointer], end=self.print_end)
                 case Interpreter.Token.INPUT:
                     self.data[self.data_pointer] = int(input())
                     if self.data[self.data_pointer] > 255:
